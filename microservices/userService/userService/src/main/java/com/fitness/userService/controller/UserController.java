@@ -20,6 +20,6 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<UserResponse> register(@RequestBody RegisterRequest request) {
         // Implement registration logic
-        return ResponseEntity.ok(userService.register(request), HttpStatus.CREATED);
+        return ResponseEntity.ok(userService.register(request));
     }
 }
