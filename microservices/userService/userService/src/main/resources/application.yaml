@@ -1,3 +1,14 @@
 spring:
   application:
     name: userService
+
+  datasource:
+    url: jdbc:postgresql://localhost:5433/demo-user
+    username: postgres
+    password: admin@123
+  jpa:
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+
