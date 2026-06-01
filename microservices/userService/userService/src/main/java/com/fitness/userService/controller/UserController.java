@@ -3,6 +3,7 @@ package com.fitness.userService.controller;
 import com.fitness.userService.dto.RegisterRequest;
 import com.fitness.userService.dto.UserResponse;
 import com.fitness.userService.services.UserService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,11 +15,10 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<UserResponse> register(@RequestBody RegisterRequest request) {
+    public ResponseEntity<UserResponse> register(@Valid @RequestBody RegisterRequest request) {
         // Implement registration logic
         return ResponseEntity.ok(userService.register(request));
     }

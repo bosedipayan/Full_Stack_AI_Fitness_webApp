@@ -26,7 +26,9 @@ public class UserService {
         user.setEmail(request.getEmail());
         user.setPassword(request.getPassword()); // In a real application, make sure to hash the password!
 
-        User savedUser = new User();
+
+
+        User savedUser = userRepository.save(user);
         UserResponse userResponse = new UserResponse();
         userResponse.setId(savedUser.getId());
         userResponse.setName(savedUser.getName());
