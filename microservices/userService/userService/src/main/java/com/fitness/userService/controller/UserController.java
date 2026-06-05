@@ -28,4 +28,10 @@ public class UserController {
         // Implement registration logic
         return ResponseEntity.ok(userService.register(request));
     }
+
+    @GetMapping("/{userId}/validate")
+    public ResponseEntity<Boolean> validateUserProfile(@PathVariable String userId) {
+        // Implement logic to validate user profile by user ID
+        return ResponseEntity.ok(userService.validateUserProfile(userId));
+    }
 }

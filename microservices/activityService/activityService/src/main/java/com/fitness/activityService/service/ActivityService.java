@@ -15,11 +15,17 @@ import java.time.LocalDateTime;
 public class ActivityService {
 
     private final ActivityRepository activityRepository;
+    private final UserValidationService userValidationService;
 
     public ActivityResponse trackActivity(ActivityRequest request) {
         // Placeholder for tracking an activity
         // In a real implementation, this would involve saving the activity to a database
         // and performing any necessary calculations (e.g., calories burned)
+        boolean isValidUser = userValidationService.validateUser(request.getUserId());
+
+        if (!isValidUser) {
+            throw new RuntimeException("Invalid user ID");
+        }
 
         Activity activity = Activity.builder()
                 .userId(request.getUserId())
