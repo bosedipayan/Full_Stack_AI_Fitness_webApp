@@ -15,6 +15,7 @@ public class UserValidationService {
     private final WebClient userServiceClient;
 
     public boolean validateUser(String userId) {
+        log.info("Validating user with ID: {}", userId);
         try {
             userServiceClient.get()
                     .uri("/api/users/{userId}/validate", userId)

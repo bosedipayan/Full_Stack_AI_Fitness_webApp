@@ -5,6 +5,7 @@ import com.fitness.userService.dto.UserResponse;
 import com.fitness.userService.models.User;
 import com.fitness.userService.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class UserService {
 
     @Autowired
@@ -60,6 +62,7 @@ public class UserService {
     }
 
     public Boolean validateUserProfile(String userId) {
+        log.info("Validating user with ID: {}", userId);
         return userRepository.existsById(userId);
     }
 }
