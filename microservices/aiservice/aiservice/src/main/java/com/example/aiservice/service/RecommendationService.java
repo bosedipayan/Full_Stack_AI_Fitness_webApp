@@ -20,4 +20,6 @@ public class RecommendationService {
     public @Nullable AiRecommendation getRecommendationsForActivity(String activityType) {
         return recommendationRepository.findByActivityType(activityType).orElseThrow(() -> new RuntimeException("No recommendations found for this activity type"));
     }
+
+
 }
