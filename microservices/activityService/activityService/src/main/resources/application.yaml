@@ -2,6 +2,17 @@ spring:
   application:
     name: activityService
 
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+
+kafka:
+  topic:
+    name: activity-events
+
   data:
     mongodb:
       uri: mongodb://localhost:27017/AI_activity_fitness
