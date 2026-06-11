@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ActivityMessageListener {
 
-    @KafkaListener(topics = "${kafka.topic.name}", groupId = "${kafka.consumer.group-id}")
+    @KafkaListener(topics = "${kafka.topic.name}", groupId = "${spring.kafka.consumer.group-id}")
     public void processActivity(Activity activity) {
         log.info("Received activity: {}", activity.getUserId());
         // Here you can add logic to process the activity, e.g., save it to a database or trigger other actions
