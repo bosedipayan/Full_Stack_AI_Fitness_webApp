@@ -21,6 +21,8 @@ public class ActivityController {
     @PostMapping
     public ResponseEntity<ActivityResponse> trackActivity(@RequestBody ActivityRequest activityRequest) {
         // Placeholder for tracking an activity
+//        System.out.println("Heyyyyyyyyyy");
+
         ActivityResponse response = activityService.trackActivity(activityRequest);
         return ResponseEntity.ok(response);
     }

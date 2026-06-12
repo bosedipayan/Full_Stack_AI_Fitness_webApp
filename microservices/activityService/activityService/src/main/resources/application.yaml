@@ -15,7 +15,7 @@ kafka:
 
   data:
     mongodb:
-      uri: mongodb://localhost:27017/AI_activity_fitness
+      uri: mongodb://localhost:27017
       database: AI_activity_fitness
 
 eureka:

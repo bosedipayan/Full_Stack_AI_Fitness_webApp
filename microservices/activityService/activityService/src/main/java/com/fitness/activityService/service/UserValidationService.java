@@ -16,15 +16,23 @@ public class UserValidationService {
 
     public boolean validateUser(String userId) {
         log.info("Validating user with ID: {}", userId);
+
         try {
-            userServiceClient.get()
+            System.out.println("Before WebClient call");
+
+            Boolean isValid = userServiceClient.get()
                     .uri("/api/users/{userId}/validate", userId)
                     .retrieve()
                     .bodyToMono(Boolean.class)
-                    .block(); // User exists
-        } catch (WebClientResponseException e) {
-            e.printStackTrace(); // User does not exist or an error occurred
+                    .block();
+
+            System.out.println("After WebClient call");
+
+            return Boolean.TRUE.equals(isValid);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
-        return false;
     }
 }

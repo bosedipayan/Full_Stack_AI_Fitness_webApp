@@ -27,7 +27,11 @@ public class ActivityService {
         // Placeholder for tracking an activity
         // In a real implementation, this would involve saving the activity to a database
         // and performing any necessary calculations (e.g., calories burned)
+        System.out.println("Before validation");
+
         boolean isValidUser = userValidationService.validateUser(request.getUserId());
+
+        System.out.println("After validation");
 
         if (!isValidUser) {
             throw new RuntimeException("Invalid user ID");
@@ -43,6 +47,9 @@ public class ActivityService {
                 .build();
 
         Activity saved = activityRepository.save(activity);
+
+        System.out.println("Saved Activity ID = "+ saved.getId());
+        System.out.println(saved);
 
         try{
             kafkaTemplate.send(topicName, saved.getUserId(), saved);
