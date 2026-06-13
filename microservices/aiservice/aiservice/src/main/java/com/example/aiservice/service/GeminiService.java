@@ -21,9 +21,9 @@ public class GeminiService {
     @Value("${gemini.api.key}")
     private String geminiApiKey;
 
-    public GeminiService(WebClient.Builder webClientConfig) {
-        this.webClient = webClientConfig.build();
-    }
+//    public GeminiService(WebClient.Builder webClientConfig) {
+//        this.webClient = webClientConfig.build();
+//    }
     public String getRecommendations(String prompt)
     {
         Map<String, Object> requestBody = Map.of(
