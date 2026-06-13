@@ -1,6 +1,7 @@
 package com.example.aiservice.service;
 
 import com.fitness.activityService.config.WebClientConfig;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
+@Data
 public class GeminiService {
     private final WebClient webClient;
 
