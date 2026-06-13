@@ -2,7 +2,7 @@ package com.example.aiservice.service;
 
 import com.fitness.activityService.config.WebClientConfig;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -13,10 +13,10 @@ import java.util.Map;
 public class GeminiService {
     private final WebClient webClient;
 
-//    @Value("${gemini.api.url}")
+    @Value("${gemini.api.url}")
     private String geminiApiUrl;
 
-//    @Value("${gemini.api.key}")
+    @Value("${gemini.api.key}")
     private String geminiApiKey;
 
     public GeminiService(WebClient.Builder webClientConfig) {
