@@ -1,6 +1,9 @@
 package com.example.aiservice.service;
 
 import com.example.aiservice.models.Activity;
+import com.example.aiservice.models.AiRecommendation;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,9 +18,40 @@ import org.springframework.stereotype.Service;
 public class ActivityAIService {
     private final GeminiService geminiService;
 
-    public void generateRecommendation(Activity activity) {
+    public AiRecommendation generateRecommendation(Activity activity) {
         String prompt = createPromptForActivity(activity);
-        log.info("RESPONSE FROM AI {}", geminiService.getRecommendations(prompt));
+        String aiResponse = geminiService.getRecommendations(prompt);
+        log.info("RESPONSE FROM AI {}", aiResponse);
+
+        return processAIResponse(activity, aiResponse);
+    }
+
+    private AiRecommendation processAIResponse(Activity activity, String aiResponse) {
+        try{
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode rootNode = objectMapper.readTree(aiResponse);
+            JsonNode textNode = rootNode.path("contents")
+                                        .get(0)
+                                        .path("parts")
+                                        .get(0)
+                                        .path("text");
+
+            String recommendationText = textNode.asText()
+                    .replaceAll("\\\\n", "\n") // Replace escaped newlines with actual newlines;
+                    .replaceAll("\\\\\"", "\"") // Replace escaped quotes with actual quotes
+                    .trim();
+
+//            log.info("Parsed recommendation text: {}", recommendationText);
+
+            JsonNode analysisJson = objectMapper.readTree(recommendationText);
+            JsonNode analysisNode = analysisJson.path("analysis");
+
+        } catch (Exception e) {
+            log.error("Error processing AI response: {}", e.getMessage());
+            // Handle the error appropriately, e.g., return a default recommendation or throw a custom exception
+        }
+
+        return null;
     }
 
     private String createPromptForActivity(Activity activity) {
