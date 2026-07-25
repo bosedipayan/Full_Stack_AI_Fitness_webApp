@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Slf4j
 @AllArgsConstructor
@@ -37,8 +39,8 @@ public class ActivityAIService {
                                         .path("text");
 
             String recommendationText = textNode.asText()
-                    .replaceAll("\\\\n", "\n") // Replace escaped newlines with actual newlines;
-                    .replaceAll("\\\\\"", "\"") // Replace escaped quotes with actual quotes
+                    .replaceAll("```json\\n", "") // Replace escaped newlines with actual newlines;
+                    .replaceAll("\\n```", "") // Replace escaped quotes with actual quotes
                     .trim();
 
 //            log.info("Parsed recommendation text: {}", recommendationText);
@@ -46,12 +48,32 @@ public class ActivityAIService {
             JsonNode analysisJson = objectMapper.readTree(recommendationText);
             JsonNode analysisNode = analysisJson.path("analysis");
 
+            StringBuilder fullAnalysis = new StringBuilder();
+            addAnalysisSection(fullAnalysis, analysisNode, "overall", "Overall:");
+            addAnalysisSection(fullAnalysis, analysisNode, "pace", "Pace:");
+            addAnalysisSection(fullAnalysis, analysisNode, "heartRate", "Heart Rate:");
+            addAnalysisSection(fullAnalysis, analysisNode, "caloriesBurned", "Calories Burned:");
+
+            List<String> improvements = extractImprovements(analysisJson.path("improvements"));
+
         } catch (Exception e) {
             log.error("Error processing AI response: {}", e.getMessage());
             // Handle the error appropriately, e.g., return a default recommendation or throw a custom exception
         }
 
         return null;
+    }
+
+    private List<String> extractImprovements(JsonNode improvements) {
+        return improvements.findValuesAsText("recommendation");
+    }
+
+    private void addAnalysisSection(StringBuilder fullAnalysis, JsonNode analysisNode, String key, String prefix) {
+        if(analysisNode.has(key)) {
+            fullAnalysis.append(prefix)
+                    .append(" ")
+                    .append(analysisNode.get(key).asText()).append("\n\n");
+        }
     }
 
     private String createPromptForActivity(Activity activity) {
