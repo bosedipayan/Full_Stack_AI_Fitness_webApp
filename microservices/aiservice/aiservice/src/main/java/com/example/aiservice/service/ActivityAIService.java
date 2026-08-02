@@ -55,6 +55,8 @@ public class ActivityAIService {
             addAnalysisSection(fullAnalysis, analysisNode, "caloriesBurned", "Calories Burned:");
 
             List<String> improvements = extractImprovements(analysisJson.path("improvements"));
+            List<String> suggestions = extractSuggestions(analysisJson.path("suggestions"));
+            List<String> safety = extractSafetyGuidelines(analysisJson.path("safety"));
 
         } catch (Exception e) {
             log.error("Error processing AI response: {}", e.getMessage());
@@ -64,8 +66,26 @@ public class ActivityAIService {
         return null;
     }
 
-    private List<String> extractImprovements(JsonNode improvements) {
-        return improvements.findValuesAsText("recommendation");
+    private List<String> extractSafetyGuidelines(JsonNode safety) {
+        List<String> safetyList = new java.util.ArrayList<>();
+        return safetyList;
+    }
+
+    private List<String> extractSuggestions(JsonNode suggestions) {
+        List<String> suggestionList = new java.util.ArrayList<>();
+        return suggestionList;
+    }
+
+    private List<String> extractImprovements(JsonNode improvementsNode) {
+        List<String> improvements = new java.util.ArrayList<>();
+        if(improvementsNode.isArray()) {
+            improvementsNode.forEach(improvement ->{
+                String area = improvement.path("area").asText();
+                String recommendation = improvement.path("recommendation").asText();
+                improvements.add(String.format("%s: %s", area, recommendation));
+            });
+        }
+        return improvements.isEmpty() ? List.of("No specific improvements suggested.") : improvements;
     }
 
     private void addAnalysisSection(StringBuilder fullAnalysis, JsonNode analysisNode, String key, String prefix) {
