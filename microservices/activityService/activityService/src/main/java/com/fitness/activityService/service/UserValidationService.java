@@ -12,7 +12,7 @@ import org.springframework.web.reactive.function.client.WebClientResponseExcepti
 @Slf4j
 public class UserValidationService {
 
-    private final WebClient userServiceClient;
+    private final WebClient userServiceWebClient;
 
     public boolean validateUser(String userId) {
         log.info("Validating user with ID: {}", userId);
@@ -20,7 +20,7 @@ public class UserValidationService {
         try {
             System.out.println("Before WebClient call");
 
-            Boolean isValid = userServiceClient.get()
+            Boolean isValid = userServiceWebClient.get()
                     .uri("/api/users/{userId}/validate", userId)
                     .retrieve()
                     .bodyToMono(Boolean.class)
