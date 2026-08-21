@@ -3,6 +3,7 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/microservices/activityService/activityService/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/microservices/aiservice/aiservice/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservices/configserver/configserver/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/microservices/eureka/eureka/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/microservices/userService/userService/src/main/java" charset="UTF-8" />
   </component>
