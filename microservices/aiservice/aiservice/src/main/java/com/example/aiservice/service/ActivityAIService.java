@@ -65,7 +65,7 @@ public class ActivityAIService {
 
             return AiRecommendation.builder()
                     .activityId(activity.getId())
-                    .type(String.valueOf(activity.getType()))
+                    .activityType(String.valueOf(activity.getType()))
                     .recommendationText(fullAnalysis.toString())
                     .userId(activity.getUserId())
                     .improvements(List.of("No specific improvements suggested."))
@@ -85,7 +85,7 @@ public class ActivityAIService {
     private AiRecommendation createDefaultRecommendation(Activity activity) {
         return AiRecommendation.builder()
                 .activityId(activity.getId())
-                .type(String.valueOf(activity.getType()))
+                .activityType(String.valueOf(activity.getType()))
                 .recommendationText("No specific recommendations available at this time.")
                 .userId(activity.getUserId())
                 .improvements(Collections.singletonList("Continue with your current routine and monitor your progress."))

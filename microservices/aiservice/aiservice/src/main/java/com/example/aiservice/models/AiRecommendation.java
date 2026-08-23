@@ -16,7 +16,7 @@ public class AiRecommendation {
     @Id
     private String id;
     private String activityId;
-    private String type;// e.g., "running", "cycling", "yoga"
+    private String activityType;// e.g., "running", "cycling", "yoga"
     private String recommendationText; // e.g., "Based on your recent runs, we recommend trying interval training to improve your speed."
     private String userId; // ID of the user this recommendation is for
     private List<String> improvements;
